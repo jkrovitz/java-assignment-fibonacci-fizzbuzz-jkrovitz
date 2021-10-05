@@ -1,6 +1,6 @@
 package com.cooksys.ftd.assignments.control;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+//import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * The Fibonacci sequence is simply and recursively defined: the first two elements are `1`, and
@@ -13,8 +13,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
  * ...etc
  */
 public class Fibonacci {
-
-    /**
+	/**
      * Calculates the value in the Fibonacci sequence at a given index. For example,
      * `atIndex(0)` and `atIndex(1)` should return `1`, because the first two elements of the
      * sequence are both `1`.
@@ -24,7 +23,24 @@ public class Fibonacci {
      * @throws IllegalArgumentException if the given index is less than zero
      */
     public static int atIndex(int i) throws IllegalArgumentException {
-        throw new NotImplementedException();
+    	if (i < 0) {
+    		throw new IllegalArgumentException("Index cannot be less than 0");
+    	}
+    	else if (i < 2) {
+    		return 1;
+    	}
+
+    	else {
+    		int currentValue = 2;
+    		int previous = 1;
+    		
+    		for (int currentIndex = 2; currentIndex < i; currentIndex++) {
+    			int nextValue = currentValue + previous;
+    			previous = currentValue;
+    			currentValue = nextValue;
+    		}
+    		return currentValue;
+    	}
     }
 
     /**
@@ -38,7 +54,14 @@ public class Fibonacci {
      *                                  given end is less than the given start
      */
     public static int[] slice(int start, int end) throws IllegalArgumentException {
-        throw new NotImplementedException();
+    	if (start < 0 || end < 0 || end < start) {
+    		throw new IllegalArgumentException("Index cannot be less than 0");
+    	}
+    	int[] anArray = new int[end-start];
+    	for (int i = start, idx = 0; i < end; i++, idx++) {
+    		 anArray[idx] = atIndex(i);
+    	}
+    	return anArray;
     }
 
     /**
@@ -49,6 +72,9 @@ public class Fibonacci {
      * @throws IllegalArgumentException if the given count is negative
      */
     public static int[] fibonacci(int count) throws IllegalArgumentException {
-        throw new NotImplementedException();
+    	if (count < 0) {
+    		throw new IllegalArgumentException("Count cannot be less than 0.");
+    	}
+    	return slice(0, count);
     }
 }

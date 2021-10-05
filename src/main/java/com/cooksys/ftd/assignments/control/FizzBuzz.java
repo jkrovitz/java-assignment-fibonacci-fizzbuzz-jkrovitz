@@ -1,6 +1,10 @@
 package com.cooksys.ftd.assignments.control;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.IntStream;
+
+//import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * FizzBuzz is an old programming exercise.
@@ -26,7 +30,16 @@ public class FizzBuzz {
      * @throws IllegalArgumentException if b is zero
      */
     public static boolean divides(int a, int b) throws IllegalArgumentException {
-        throw new NotImplementedException();
+    	boolean boolResult = false;
+    	if (b == 0) {
+    		throw new IllegalArgumentException("a cannot be divided by 0");
+    	}
+    	else if (a % b == 0) {
+    		boolResult = true;
+    	} else {
+    		boolResult = false;
+    	}
+    	return boolResult;
     }
 
     /**
@@ -40,8 +53,21 @@ public class FizzBuzz {
      * @param n the number to generate a message for
      * @return a message according to the format above, or null if n is not divisible by either 3 or 5
      */
-    public static String message(int n) {
-        throw new NotImplementedException();
+    public static String message(int n){
+    	String divisabilityMessage = "";
+    	if (n % 5 == 0 && n % 3 == 0) {
+    		divisabilityMessage = n + ": FizzBuzz";
+    	}
+    	else if (n % 5 == 0) {
+    		divisabilityMessage = n + ": Buzz";
+    	}
+    	else if (n % 3 == 0) {
+    		divisabilityMessage = n + ": Fizz";
+    	}
+    	else {
+    		divisabilityMessage = null;
+    	}
+    	return divisabilityMessage;
     }
 
     /**
@@ -55,7 +81,22 @@ public class FizzBuzz {
      * @throws IllegalArgumentException if the given end is less than the given start
      */
     public static String[] messages(int start, int end) throws IllegalArgumentException {
-        throw new NotImplementedException();
+    	if (end < start) {
+    		throw new IllegalArgumentException("End cannot be less than start");
+    	}
+    	int[] numbers = IntStream.rangeClosed(start, end - 1).toArray();
+    	ArrayList<String> divisabilityMessages = new ArrayList<String>();
+    	for (int i = 0; i < numbers.length; i++) {
+    		if (start == end) {
+    			String[] divisabilityMessagesArray = divisabilityMessages.toArray(String[]::new);
+    			return divisabilityMessagesArray;
+    		}
+    		if (message(numbers[i]) != null) {
+    			divisabilityMessages.add(message(numbers[i]));
+    		}
+    	}
+    	String[] divisabilityMessagesArray = divisabilityMessages.toArray(String[]::new);
+    	return divisabilityMessagesArray;
     }
 
     /**
@@ -63,7 +104,10 @@ public class FizzBuzz {
      * the relevant messages to sysout
      */
     public static void main(String[] args) {
-        throw new NotImplementedException();
+    	int start = 1;
+    	int end = 115;
+    	String[] divisabilityMessagesArray = messages(start, end+1); // Added 1 to end because directions say to iterate through 115, which suggests 115 inclusive
+    	System.out.println("The divisability messages from " + start + " to " + end + " are: " + Arrays.toString(divisabilityMessagesArray) + ".");
     }
 
 }
